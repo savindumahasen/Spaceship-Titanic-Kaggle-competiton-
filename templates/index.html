@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaceship Titianic</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .section1{
+            margin-top: 10px;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding-top: 50px;
+            position: relative;
+        }
+
+        h1 {
+            color: brown;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        /* Styling the asterisk */
+        label::before {
+            content: '*';
+            color: red;
+            margin-right: 2px;
+            display: inline;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 0px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        button {
+            width: 30%;
+            padding: 15px;
+            border: none;
+            margin-left: 230px;
+            background-color: #0056b3;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #003366;
+        }
+
+        p {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .prediction-result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .prediction-result{
+            color: green;
+        }
+
+        .prediction-result-not{
+            color: red;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            background-color: #0056b3;
+            color: #fff;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            padding: 15px;
+        }
+
+        .modal-title {
+            font-weight: bold;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-dialog {
+            position: fixed;
+            right: 5px;
+            top: 40%;
+            transform: translateY(-50%);
+            width: 300px;
+        }
+
+        .btn-close {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Spaceship Titanic</h1>   
+    <form id="predictForm" method="post" action="/prediction">
+        <div class="row">
+             <!-- Features -->
+            <!-- You can add more features here following the same pattern -->
+            <div class="col-md-6">
+                <label for="feature0">Passanger ID:</label>
+                <input type="text" name ="0" required>
+            </div>
+
+            <!-- Feature 1: Chills -->
+            <div class="col-md-6">
+                <label for="feature1">Home Planet:</label>
+                <input type="text" name ="1" required>
+            </div>
+
+            <!-- Feature 2: High Fever -->
+            <div class="col-md-6">
+                <label for="feature2">Cryo Sleep:</label>
+                <input type="number" name ="2" required>
+            </div>
+
+            <!-- Feature 3: Headache -->
+            <div class="col-md-6">
+                <label for="feature3">Destination:</label>
+                <input type="text" name ="3" required>
+            </div>
+
+            <!-- Feature 4: Nausea -->
+            <div class="col-md-6">
+                <label for="feature4">Age:</label>
+                <input type="text" name ="4" required>
+            </div>
+
+            <!-- Feature 5: Loss Of Appetite -->
+            <div class="col-md-6">
+                <label for="feature5">VIP:</label>
+                <input type="number" name ="5" required>
+            </div>
+
+            <!-- Feature 6: Pain Behind of Eyes -->
+            <div class="col-md-6">
+                <label for="feature6">Room Service:</label>
+                <input type="text" name ="6" required>
+            </div>
+
+            <!-- Feature 7: Back Pain -->
+            <div class="col-md-6">
+                <label for="feature7">FoodCourt:</label>
+                <input type="text" name ="7" required>
+            </div>
+
+            <!-- Feature 8: Malaise -->
+            <div class="col-md-6">
+                <label for="feature8">ShoppingMall:</label>
+                <input type="text" name ="8" required>
+            </div>
+
+            <!-- Feature 9: Muscle Pain -->
+            <div class="col-md-6">
+                <label for="feature9">Spa:</label>
+                <input type="text" name ="9" required>
+            </div>
+
+            <!-- Feature 10: Red Spots -->
+            <div class="col-md-6">
+                <label for="feature10">VR Deck:</label>
+                <input type="text" name ="10" required>
+            
+            </div>
+        </div>
+        <br>
+
+        <button type="submit" id="predictButton">Predict</button>
+        <div class="section1">
+
+        </div>
+    
+    </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="predictionModal" tabindex="-1" aria-labelledby="predictionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="predictionModalLabel">Prediction Result</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="resultMessage" class="prediction-result"></p>
+                    <p id="errorMessage" class="error-message"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var predictForm = document.getElementById('predictForm');
+            var selectedValues = {};
+
+            predictForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(predictForm);
+
+                // Store the selected values before submitting the form
+                for (var pair of formData.entries()) {
+                    selectedValues[pair[0]] = pair[1];
+                }
+
+                fetch('/prediction', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var resultMessage = document.getElementById('resultMessage');
+                    resultMessage.textContent = data.result;
+
+                    // Add or remove CSS classes based on the prediction result
+                    if (data.result === 'Transported') {
+                        resultMessage.classList.add('prediction-result');
+                        resultMessage.classList.remove('prediction-result-not');
+                    } else {
+                        resultMessage.classList.add('prediction-result-not');
+                        resultMessage.classList.remove('prediction-result');
+                    }
+
+                    var myModal = new bootstrap.Modal(document.getElementById('predictionModal'));
+                    myModal.show();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while processing your request.');
+                });
+            });
+
+            // Event listener for modal close event
+            var modalElement = document.getElementById('predictionModal');
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                // Reset the form after the modal is closed
+                predictForm.reset();
+                // Clear the selected values object
+                selectedValues = {};
+            });
+        });
+    </script>
+    
+</div>
+
+</body>
+</html>
